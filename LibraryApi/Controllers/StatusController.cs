@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LibraryApi.Models.Employees;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,18 @@ namespace LibraryApi.Controllers
         {
             return Ok($"Showing employees in department {department}");
 
+        }
+
+        [HttpGet("whoami")]
+        public ActionResult WhoAmi([FromHeader(Name ="User-Agent")]string userAgent)
+        {
+            return Ok($"I see you are running {userAgent}");
+        }
+
+        [HttpPost("employees")]
+        public ActionResult HireSomeone([FromBody] PostEmployeeRequest request)
+        {
+            return Ok($"Hiring {request.Name} in {request.Department} for {request.StartingSalary:c}"); // TODO: Go through the whole pattern tomorrow when we add a book to our library.
         }
     }
 
