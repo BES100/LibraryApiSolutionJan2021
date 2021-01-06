@@ -1,4 +1,6 @@
+using AutoMapper;
 using LibraryApi.Domain;
+using LibraryApi.Profiles;
 using LibraryApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,9 +26,19 @@ namespace LibraryApi
         public void ConfigureServices(IServiceCollection services)
         {
 
+            var mapperConfiguration = new MapperConfiguration(c =>
+            {
+                c.AddProfile(new BookProfile());
+                // add additional profiles here...
+            });
+
+            IMapper mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton<IMapper>(mapper);
+            services.AddSingleton<MapperConfiguration>(mapperConfiguration);
+
             services.AddDbContext<LibraryDataContext>(cfg =>
             {
-                cfg.UseSqlServer(@"server=.\sqlexpress;database=library;integrated security=true");
+                cfg.UseSqlServer(Configuration.GetConnectionString("library"));
             });
 
             // AddTransient - every time you create something that needs this thing, create a brand new instance.

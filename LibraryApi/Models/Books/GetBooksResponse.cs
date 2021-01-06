@@ -9,5 +9,7 @@ namespace LibraryApi.Models.Books
     {
         public int NumberOfBooks { get; set; }
         public List<GetBooksResponseItem> Data { get; set; }
+
+        public string Genre { get; set; }
     }
 }
