@@ -1,4 +1,5 @@
 ﻿using LibraryApi.Models.Employees;
+using LibraryApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +10,22 @@ namespace LibraryApi.Controllers
 {
     public class StatusController : ControllerBase
     {
-        
+        private readonly IGetServerStatus _serverStatus;
+
+        public StatusController(IGetServerStatus serverStatus)
+        {
+            _serverStatus = serverStatus;
+        }
+
+
+
         // GET /status
         [HttpGet("status")]
-        public ActionResult<GetStatusResponse> GetTheStatus()
+        public async Task<ActionResult<GetStatusResponse>> GetTheStatus()
         {
-            var response = new GetStatusResponse
-            {
-                Message = "Looks Good",
-                LastChecked = DateTime.Now
-            };
+            // WTCYWYH - Write the Code You Wish You Had.
+            GetStatusResponse response = await  _serverStatus.GetCurrentStatus();
+
            
             return Ok(response);
         }

@@ -1,3 +1,4 @@
+using LibraryApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,11 @@ namespace LibraryApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // AddTransient - every time you create something that needs this thing, create a brand new instance.
+            // AddScoped - only create ONE instance per HTTP Request
+            services.AddScoped<IGetServerStatus, DrashtiServerStatus>();
+            // AddSingleton - create one instance, and share it with everyone. NOTE: Must be thread safe.
+
             services.AddControllers();
 
             services.AddSwaggerGen(config =>
