@@ -15,9 +15,26 @@ namespace LibraryApi.Domain
         public DbSet<Book> Books { get; set; }
 
 
-        public IQueryable<Book> GetBooksInInvetory()
+        public IQueryable<Book> GetBooksInInventory()
         {
             return Books.Where(b => b.IsInInventory);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>()
+                    .Property(b => b.Author)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+            modelBuilder.Entity<Book>()
+                .Property(b => b.Title)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<Book>()
+                .Property(b => b.Genre)
+                .HasMaxLength(100);
         }
     }
 }

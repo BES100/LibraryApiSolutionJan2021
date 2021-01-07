@@ -37,7 +37,7 @@ namespace LibraryApi.Controllers
             return Ok($"Hello, {name}!");
         }
 
-        [HttpGet("orders/{year:int}/{month:int:range(1,12)}/{day:int}")]
+        [HttpGet("orders/{year:int}/{month:int:range(1,12)}/{day:int}", Name ="status#getordersfor")]
         public ActionResult GetOrdersFor(int year, int month, int day)
         {
             return Ok($"Getting orders for {year}/{month}/{day}");

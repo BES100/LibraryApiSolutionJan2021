@@ -12,6 +12,12 @@ namespace LibraryApi.Profiles
     {
         public BookProfile()
         {
+            // PostBookRequest -> Book
+            CreateMap<PostBookRequest, Book>()
+                .ForMember(dest => dest.IsInInventory, config => config.MapFrom(_ => true))
+                .ForMember(dest => dest.AddedToInventory, config => config.MapFrom(_ => DateTime.Now))
+                .ForMember(dest => dest.Id, config => config.Ignore());
+
             // Book -> GetBooksResponseItem
             CreateMap<Book, GetBooksResponseItem>();
 

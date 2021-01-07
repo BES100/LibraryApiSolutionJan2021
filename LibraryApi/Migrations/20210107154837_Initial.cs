@@ -13,9 +13,9 @@ namespace LibraryApi.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
-                    Author = table.Column<string>(nullable: true),
-                    Genre = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 200, nullable: false),
+                    Author = table.Column<string>(maxLength: 200, nullable: false),
+                    Genre = table.Column<string>(maxLength: 100, nullable: true),
                     AddedToInventory = table.Column<DateTime>(nullable: false),
                     IsInInventory = table.Column<bool>(nullable: false)
                 },
